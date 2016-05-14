@@ -1,0 +1,136 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="flex-grid">
+        {#<div class="app-bar green grid no-margin" style="height: 200px">#}
+            {#<div class="row cells12 no-margin">#}
+                {#<div class="cells2 colspan2 place-right">#}
+                    {#<a href="#" onclick="return add_favorite(this);" class="fg-white text-shodow app-bar-element" ><strong>Добавить в Избранное</strong></a>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+        <div class="container " id="drop-area">
+            <br />
+            <br />
+            <br />
+            <h2 class="text-shadow metro-title align-center">вставить картинку и получить ссылку</h2>
+            <br />
+            <br />
+            <br />
+            <div class="pasted-image-block">
+                <h3 class='align-center '>
+                    <div class="image-container bordered  image-format-hd" id="drop-area-shadow">
+                        <div class="frame">
+                            <h2  id="img_url" class="margin40"><small>нажмите</small> <strong>CTRL</strong>+<strong>V</strong> </h2>
+                        </div>
+                    </div>
+                </h3>
+            </div>
+            <div class="tips container margin50">
+                <div style='' class="">
+                    <h2 class="">Подсказки</h2>
+                    <div class="accordion " data-role="accordion">
+                        <div class="frame">
+                            <div class="heading"><h3>Снимок экрана с помощью клавиши <a>Print Screen</a></h3></div>
+                            <div class="content">
+                                <div class="flex-grid">
+                                    <div class="row">
+                                        <div class="cell size6">
+                                            <p class="text-accent no-margin padding10">Print Screen єто кнопка для моментального снимка Вашего экрана. Название кнопки может быть сокращенно например Prt Scr.
+                                                Нажмите один раз, чтобы захватить изображение всего экрана, а затем просто нажмите Ctrl+V на нашем сайте.
+                                                Вы также можете нажать Alt + Print Screen, чтобы сделать снимок всего активного окна.</p>
+                                        </div>
+                                        <div class="cell size6 tips-img">
+                                            <img src="{{ asset('img/knopka-skrin.jpg') }}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="frame">
+                            <div class="heading"><h3>Используйте наш сервис для простого и <a>быстрого редактирования</a> картинок</h3></div>
+                            <div class="content">
+                                <div class="flex-grid">
+                                    <div class="row">
+                                        <div class="cell size6 tips">
+                                            <p class="text-accent no-margin padding10">После того, как вы вставили изображение, используйте наш редактор, чтобы обрезать изображение с Crop Tool.
+                                                Нарисуйте ноты с помощью Pen Tool, выделите или редактировать с помощью Rectangle Tool, а также добавляйте текст с помою Text Tool.
+                                                Сохраните изменения, когда вы закончите и поделитесь результатом!</p>
+                                        </div>
+                                        <div class="cell size6 tips-img">
+                                            <img src="{{ asset('img/example2.gif') }}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="frame">
+                            <div class="heading"><h3>Вы также можете просто <a>вставить картинку</a> из вашего любимого редактора<a> быстрого редактирования</a> картинок</h3></div>
+                            <div class="content">
+                                <div class="flex-grid">
+                                    <div class="row">
+                                        <div class="cell size6">
+                                            <p class="text-accent no-margin padding10">Наш сервис позволяет вставлять изображения из буфера обмена - даже отрывки из других графических редакторов.
+                                                Например, из Photoshop или Paint, выберите область с помошью Marquee Tool и скопируйте его в буфер обмена, нажав Ctrl + C.
+                                                Потом загрузите его в один шаг, вставив его на нашем сайте.</p>
+                                        </div>
+                                        <div class="cell size6 tips-img">
+                                            <img src="{{ asset('img/example3.png') }}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="frame">
+                            <div class="heading"><h3>Вставка картинок из <a> сети</a></h3></div>
+                            <div class="content">
+                                <div class="flex-grid">
+                                    <div class="row">
+                                        <div class="cell size7">
+                                            <p class="text-accent no-margin padding10">Редактировать изображения с других сайтов еще легче: просто скопируйте изображение и вставьте его на нашем сайте.
+                                                Помните: любые изображения в вашем буфере обмена могут быть загружены на наш сервис.</p>
+                                        </div>
+                                        <div class="cell size5 tips-img">
+                                            <img src="{{ asset('img/example4.JPG') }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="frame">
+                            <div class="heading"><h3>Вы можете просто <a>перетащить файл</a> из вашего компьютера.</h3></div>
+                            <div class="content">
+                                <div class="flex-grid">
+                                    <div class="row flex-just-sb">
+                                        <div class="cell size4">
+                                            <p class="text-accent no-margin padding10">Для редактирования вашего изображения просто претащите файл из вашего компьютера в выделенную область на нашем сайте.</p>
+                                        </div>
+                                        <div class="cell offset1 size7 tips-img">
+                                            <img src="{{ asset('img/example5.png') }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {#<div class="margin20 padding10 bg-green fg-white text-accent">#}
+                    {#<strong>Всего загружено изображений: </strong><?=$statInfo['0']?>,#}
+                    {#<strong>сейчас на сервере: </strong><?=$statInfo['1']?>,#}
+                    {#<strong>памяти на сервере занято: </strong><?=round($statInfo['2']/(pow(2,10)*pow(2,10)),2)?>mb#}
+                {#</div>#}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascript %}
+    <script src="{{ asset('js/pasteimage.js') }}"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
+    <script>
+        var objects = $('#mypanel').panel();
+
+        for(i = 0; i < objects.length; i++){
+        objects[i].toggle();
+        }
+    </script>
+{% endblock %}

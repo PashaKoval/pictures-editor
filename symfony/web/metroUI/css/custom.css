@@ -1,0 +1,73 @@
+body{
+    overflow:scroll;
+}
+.main-header-text{
+    font-size:72px;
+    margin: 25px 0px;
+}
+.link-block{
+    min-width:600px;
+}
+.link-block .input{
+    text-align:center;
+}
+.page-content{
+    min-height:60%;
+}
+.f-menu>li:hover {
+    background-color: transparent;
+    color: #1D6892;
+}
+.sub-header a{
+    font: 500 1.125rem/1.1 "Segoe UI", "Open Sans", sans-serif, serif !important;
+}
+.page-history .listview .list{
+    height: auto;
+    cursor: default;
+}
+.page-history .listview .list .text{
+    width: 300px;
+}
+.page-history .listview .list .list-icon {
+    position: relative;
+    width: 128px;
+    height: 128px;
+}
+.panel>.content {
+    font-size: 1.1rem;
+}
+
+.tips-img img{
+    max-width: 450px;
+}
+
+.frame{
+    box-shadow:2px 2px 5px black;	
+}
+
+.social-button{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-x : 50%;
+    background-position-y : 50%;
+}
+
+.postion-abolute{
+    position:absolute;   
+}
+
+.size40 {
+    max-width: 40px
+}
+
+.accordion>.frame>.heading:before {
+    display: none;
+}
+
+.app-bar {
+    height: 200px;
+}
+
+.accordion>.frame.active>.heading a{
+    color: black;
+}

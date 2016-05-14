@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="grid">
+    <div class="row cells12">
+        <div class="cell colspan11 offset1">
+            <div class="container page-history">
+                <h2>История загрузок</h2>
+                {% if images|length <= 0 %}
+                    <div class="padding10 margin40 bg-orange fg-white text-accent">
+                        <strong>История пуста.</strong> <a href="{{ path('upload') }}">Перейти к загрузке</a>
+                    </div>
+                {% else %}
+                <div class="listview">
+                    {% for image in images %}
+                    {% set imagePath = 'storage/'~image.path|slice(0,2)~'/'~image.path~'.jpg' %}
+                    <div class="list">
+                        <img src="{{ asset(imagePath) }}" class="list-icon">
+                        <span class="list-title input-control text"><input readonly value='$img_page_url'></span>
+                        <span class="list-subtitle "><a href='{{ path('edit', {'image': image.path}) }}' target='_blank'>Открыть в новой вкладке</a></span>
+                        <span class="list-subtitle padding40"><a class='fg-red' href='{{ path('delete', {'image': image.path}) }}' onclick="if(!confirm('Удалить картинку с сервера?')) return false;">Удалить</a></span>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

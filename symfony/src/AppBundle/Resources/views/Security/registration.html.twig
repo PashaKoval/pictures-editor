@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="login-form padding20 block-shadow">
+        {{ form_start(form) }}
+            <h1 class="text-light">Registration</h1>
+            <hr class="thin"/>
+            <br />
+            <div class="input-control text full-size" data-role="input">
+                <label for="user_login">User name:</label>
+                {{ form_widget(form.username) }}
+                <button class="button helper-button clear"><span class="mif-cross"></span></button>
+            </div>
+            <br />
+            <br />
+            <div class="input-control text full-size" data-role="input">
+                <label for="user_login">Email:</label>
+                {{ form_widget(form.email) }}
+                <button class="button helper-button clear"><span class="mif-cross"></span></button>
+            </div>
+            <br />
+            <br />
+            <div class="input-control password full-size" data-role="input">
+                <label for="user_password">Password:</label>
+                {{ form_widget(form.plainPassword.first) }}
+                <button class="button helper-button reveal"><span class="mif-looks"></span></button>
+            </div>
+            <br />
+            <br />
+            <div class="input-control password full-size" data-role="input">
+                <label for="user_password">Repeat password:</label>
+                {{ form_widget(form.plainPassword.second) }}
+                <button class="button helper-button reveal"><span class="mif-looks"></span></button>
+            </div>
+            <br />
+            <br />
+            <div class="form-actions">
+                <button type="submit" class="button primary">Register</button>
+                <a href="{{ path('login') }}" class="button link">Login</a>
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    <style>
+        .login-form {
+            width: 25rem;
+            height: 24.75rem;
+            position: fixed;
+            top: 40%;
+            margin-top: -9.375rem;
+            left: 57%;
+            margin-left: -12.5rem;
+            background-color: #ffffff;
+            opacity: 0;
+            -webkit-transform: scale(.8);
+            transform: scale(.8);
+        }
+    </style>
+{% endblock %}
+{% block javascript %}
+    <script>
+        $('body').addClass('bg-cobalt');
+
+        $(function(){
+            var form = $(".login-form");
+
+            form.css({
+                opacity: 1,
+                "-webkit-transform": "scale(1)",
+                "transform": "scale(1)",
+                "-webkit-transition": ".5s",
+                "transition": ".5s"
+            });
+        });
+    </script>
+{% endblock %}
