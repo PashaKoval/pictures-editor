@@ -15,8 +15,8 @@
     <body>
         <div class="flex-grid">
             <div class="row cells12">
-                <div class="cell">
-                    <ul class="sidebar2 dark" style="width: 300px; float: left;">
+                <div class="cell colspan2">
+                    <ul class="sidebar2 dark" style="float: left; border-color: #5c5c5c">
                         <li class="bg-dark" style="height: 150px"></li>
                         <li {% if app.request.get('_route') == 'upload' %}class="active"{% endif %}>
                             <a href="{{ path('upload') }}">
@@ -51,7 +51,7 @@
                         <li class="bg-dark" style="height: 2000px"></li>
                     </ul>
                 </div>
-                <div class="cell">
+                <div class="cell colspan10">
                 {% block body %}
 
                 {% endblock %}

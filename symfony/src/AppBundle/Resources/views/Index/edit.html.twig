@@ -2,116 +2,86 @@
 
 {% block body %}
 
-{#<div class="app-bar grid no-margin" data-role="appbar">#}
-    {#<div class="row cells12">#}
-        {#<div class="cell colspan1">#}
-            {#<a href='/' class="app-bar-element branding"><strong>PrtScr.cx.ua</strong></a>#}
+<div class="row cells9 fg-grey text-accent" style="background-color: #5c5c5c">
+    <div class="cell colspan2"></div>
+    <div class="row flex-just-center">
+        <div class="">
+            <button onclick="selectTools($(this))" style="margin: 0; border-color: #999999;" id="undo-button" class="shortcut-button bg-lightGray bg-active-dark fg-white" data-role="hint" data-hint-mode="1" data-hint="Отменить изменения">
+                    <span class="icon mif-keyboard-return"></span>Undo
+            </button>
+            <button style="margin: 0; border-color: #999999;" class="shortcut-button bg-lightGray bg-active-dark fg-white" id="frame">
+                <img src="{{ asset('icon/frame.png.jpg') }}" class="icon"/>Frame<br />
+            </button>
+            <button style="margin: 0; border-color: #999999;" class="shortcut-button bg-lightGray bg-active-dark fg-white" id="marker"><!--active by default-->
+                <span class="icon mif-pencil fg-white"></span>Marker
+            </button>
+            <button style="margin: 0; border-color: #999999;" class="shortcut-button bg-lightGray bg-active-dark fg-white" id="cut">
+                <span class="icon mif-crop fg-white"></span>Snipp
+            </button>
+            <button style="margin: 0; border-color: #999999;" class="shortcut-button bg-lightGray bg-active-dark fg-white" id="text">
+                <span class="icon fg-white"><strong>T</strong></span>Text
+            </button>
+            <button style="margin: 0; border-color: #5c5c5c;  background-color: #5c5c5c;" class="shortcut-button fg-white" id="text">
+                <label>Color:</label>
+                <input class="cell colspan1" type="color" id="brushColor" value="#ff0000">
+                <label>Size:&nbsp&nbsp</label>
+                <small>
+                    <select class="size40" id="size">
+                        <option value="1" style="color: black">1px(15 текст)</option>
+                        <option value="3" style="color: black">3px(15 текст)</option>
+                        <option value="5" style="color: black">5px(20 текст)</option>
+                        <option value="10" selected style="color: black">10px(40 текст)</option>
+                        <option value="15" style="color: black">15px(60 текст)</option>
+                        <option value="20" style="color: black">20px(80 текст)</option>
+                        <option value="30" style="color: black">30px(120 текст)</option>
+                        <option value="40" style="color: black">40px(160 текст)</option>
+                        <option value="70" style="color: black">70px(280 текст)</option>
+                    </select>
+                </small>
+            </button>
+        </div>
+        {#<div class="cell size2 margin5">#}
+            {#<label><small>Color:</small></label>#}
+            {#<input class="cell colspan1" type="color" id="brushColor" value="#ff0000">#}
+            {#<label><small>Size:&nbsp&nbsp</small></label>#}
+            {#<small>#}
+                {#<select class="size40" id="size">#}
+                    {#<option value="1">1px(15 текст)</option>#}
+                    {#<option value="3">3px(15 текст)</option>#}
+                    {#<option value="5">5px(20 текст)</option>#}
+                    {#<option value="10" selected>10px(40 текст)</option>#}
+                    {#<option value="15">15px(60 текст)</option>#}
+                    {#<option value="20">20px(80 текст)</option>#}
+                    {#<option value="30">30px(120 текст)</option>#}
+                    {#<option value="40">40px(160 текст)</option>#}
+                    {#<option value="70">70px(280 текст)</option>#}
+                {#</select>#}
+            {#</small>#}
         {#</div>#}
-        {#<div class="cell colspan5">#}
-            {#<ul class="app-bar-menu">#}
-                {#<li data-flexorderorigin="0" data-flexorder="1"><a href="/"> ::Публикация изображений и скриншотов прямо в интернет</a></li>#}
-            {#</ul>#}
-        {#</div>#}
-        {#<div class="cell colspan2 offset4 padding5">#}
-            {#<button class="button cycle-button social-button" style="background-image: url({{ asset('icon/google+.PNG') }})"></button>#}
-            {#<button class="button cycle-button social-button" style="background-image: url({{ asset('icon/facebook.PNG') }}"></button>#}
-            {#<button class="button cycle-button social-button" style="background-image: url({{ asset('icon/vk.PNG') }}"></button>#}
-            {#<button class="button cycle-button social-button" style="background-image: url({{ asset('icon/twitter.PNG') }}"></button>#}
-        {#</div>#}
-    {#</div>#}
-{#</div>#}
-<div class="row bg-grayLighter fg-grey text-accent padding5">
-    <h3 class="text-accent align-center">
-        Картинка автоматически удалится через 30 дней с момента последнего просмотра
-    </h3>
-    <a href="#" onclick="return add_favorite(this);" class="fg-green padding10 place-right" >Добавить в Избранное</a>
+    </div>
+    {#<a href="#" onclick="return add_favorite(this);" class="fg-green padding10 place-right" >Добавить в Избранное</a>#}
 </div>
 <div class="page-content">
-
-    {#<?php#}
-{#if($_GET['action'] == 'remove'){#}
-   {#if($is_myimage){#}
-        {#@unlink ($filename);#}
-        {#if(($key = array_search($img, $_SESSION['myimages'])) !== false) {#}
-            {#unset($_SESSION['myimages'][$key]);#}
-        {#}#}
-     {#?>#}
-    {#<div class="padding10 margin40 bg-green fg-white text-accent">#}
-        {#<strong>Картинка успешно удалена!</strong> Теперь картинка недоступна. <a class="fg-white place-right" href="/">Перейти на главную </a>#}
-    {#</div>#}
-    {#<?php#}
-   {#}else{#}
-     {#?>#}
-    {#<div class="padding10 margin40 bg-red fg-white text-accent">#}
-        {#<strong>Ошибка!</strong> Нет прав на это действие! <a class="fg-white place-right" href="?">Открыть картинку</a>#}
-    {#</div>#}
-    {#<?php#}
-   {#}#}
-{#}else#}
-{#{#}
-{#?>#}
-
-    <div class="pasted-image-block">
-        {#<?php#}
-
-{#if ($is_myimage) {#}
-
-{#?>#}
-
-        <div class="control-image-block row cells12">
-                <div class="flex-grid">
-                    <div class="row flex-just-center">
-                        <div class="cell size-x600">
-                            <div class="row">
-                                <div class="input-control text big-input link-block" >
-                                    <input type="text" value="{{ url_image }}" readonly="" class='align-left' id="img_url">
-                                    <button class="button mini-button" data-role="popover" data-popover-mode="click" data-popover-position="right" data-popover-text="URL скопирован в буфер обмена" data-popover-background="bg-cyan" data-popover-color="fg-white" id="copy"><span class="mif-images"></span></button>
-                                    <small id="copy_result"></small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="cell colspan1">
-                            <span class="list-subtitle"><a class="fg-red " href="?action=remove" onclick="if(!confirm('Удалить картинку с сервера?')) return false; del=true"><small>Удалить</small></a></span><br/>
-                            <span class="list-subtitle place-right"><a class="fg-green" href="#" id="save"><h4>Сохранить</h4></a></span>
-                        </div>
-                    </div>
-                    <div class="row flex-just-center">
-                        <div class="toolbar">
-                            <button id="undo-button" class="image-button bg-pink bg-active-amber fg-white small-button" data-role="hint" data-hint-mode="1" data-hint="Отменить изменения">
-                                <strong><span class="icon mif-keyboard-return bg-darkPink"></span> Назад</strong></button>
-                            <button class="image-button" id="frame">
-                                Рамка<img src="{{ asset('icon/frame.png.jpg') }}" class="icon"/><br />
-                            </button>
-                            <button class="image-button bg-cyan bg-active-darkBlue fg-white" id="marker">
-                                Маркер<span class="icon mif-pencil fg-white"></span>
-                            </button>
-                            <button class="image-button" id="cut">
-                                Ножницы<span class="icon mif-crop fg-white"></span>
-                            </button>
-                            <button class="image-button" id="text">
-                                Текст<span class="icon fg-white"><strong>T</strong></span>
-                            </button>
-                        </div>
-                        <div class="cell size2">
-                            <label><small>Цвет:</small></label>
-                            <input class="cell colspan1" type="color" id="brushColor" value="#ff0000">
-                            <label><small>Размер:</small></label>
-                            <small>
-                                <select class="size40" id="size">
-                                    <option value="1">1px(15 текст)</option>
-                                    <option value="3">3px(15 текст)</option>
-                                    <option value="5">5px(20 текст)</option>
-                                    <option value="10" selected>10px(40 текст)</option>
-                                    <option value="15">15px(60 текст)</option>
-                                    <option value="20">20px(80 текст)</option>
-                                    <option value="30">30px(120 текст)</option>
-                                    <option value="40">40px(160 текст)</option>
-                                    <option value="70">70px(280 текст)</option>
-                                </select>
-                            </small>
+    <br>
+    <div class="pasted-image-block"><div class="control-image-block row cells12">
+        <div class="flex-grid">
+            <div class="row flex-just-center">
+                <div class="cell size-x600">
+                    <div class="row">
+                        <div class="input-control text big-input link-block" >
+                            <input type="text" value="{{ url_image }}" readonly="" class='align-left' id="img_url">
+                            <button class="button mini-button" data-role="popover" data-popover-mode="click" data-popover-position="right" data-popover-text="URL скопирован в буфер обмена" data-popover-background="bg-cyan" data-popover-color="fg-white" id="copy"><span class="mif-images"></span></button>
+                            <small id="copy_result"></small>
                         </div>
                     </div>
                 </div>
+                <div class="cell colspan1">
+                    <span class="list-subtitle"><a class="fg-red " href="?action=remove" onclick="if(!confirm('Удалить картинку с сервера?')) return false; del=true"><small>Удалить</small></a></span><br/>
+                    <span class="list-subtitle place-right"><a class="fg-green" href="#" id="save"><h4>Сохранить</h4></a></span>
+                </div>
+            </div>
+
+        </div>
         </div>
         <div class="flex-grid">
             <div class="row flex-just-sa">

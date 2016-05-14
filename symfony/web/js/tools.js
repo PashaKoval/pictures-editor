@@ -376,11 +376,11 @@ function disableSelection(canvas){
 }
 
 function selectTools(newTool){
-    $('#text').removeClass('bg-cyan bg-active-darkBlue fg-white');
-    $('#cut').removeClass('bg-cyan bg-active-darkBlue fg-white');
-    $('#marker').removeClass('bg-cyan bg-active-darkBlue fg-white');
-    $('#frame').removeClass('bg-cyan bg-active-darkBlue fg-white');
-    newTool.addClass('bg-cyan bg-active-darkBlue fg-white');
+    $('#text').removeClass('bg-cyan bg-active-darkBlue fg-black');
+    $('#cut').removeClass('bg-cyan bg-active-darkBlue fg-black');
+    $('#marker').removeClass('bg-cyan bg-active-darkBlue ');
+    $('#frame').removeClass('bg-cyan bg-active-darkBlue fg-black');
+    newTool.addClass('bg-cyan bg-active-darkBlue fg-black');
 }
 
 function copyUrlToClipboard() {
