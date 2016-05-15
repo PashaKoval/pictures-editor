@@ -242,5 +242,30 @@ class AjaxController extends Controller
 
         return new JsonResponse($comments);
     }
+
+    /**
+     * @Route("/ajax-share", name="share")
+     */
+    public function shareAction(Request $request)
+    {
+        $image = $request->request->get('image');
+        $email = $request->request->get('email');
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject('Pictures')
+            ->setFrom('send@example.com')
+            ->setTo($email)
+            ->setBody(
+                $this->renderView(
+                    ':default:share.html.twig',
+                    ['link' => 'http://'.$request->getHost().'/edit/'.$image]
+                ),
+                'text/html'
+            )
+        ;
+        $this->get('mailer')->send($message);
+
+        return new Response(200);
+    }
 }
 

@@ -16,7 +16,6 @@
                     {% set imagePath = 'storage/'~image.path|slice(0,2)~'/'~image.path~'.jpg' %}
                     <div class="list">
                         <img src="{{ asset(imagePath) }}" class="list-icon">
-                        <span class="list-title input-control text"><input readonly value='$img_page_url'></span>
                         <span class="list-subtitle "><a href='{{ path('edit', {'image': image.path}) }}' target='_blank'>Открыть в новой вкладке</a></span>
                         <span class="list-subtitle padding40"><a class='fg-red' href='{{ path('delete', {'image': image.path}) }}' onclick="if(!confirm('Удалить картинку с сервера?')) return false;">Удалить</a></span>
                     </div>

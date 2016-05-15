@@ -15,6 +15,9 @@ conn.onmessage = function(e) {
         case 'new-changes':
             addNewChanges(payload.element, payload.element_name, payload.user);
             break;
+        case 'new-connection':
+            newConnection(payload.data);
+            break;
         default: break;
     }
 };
@@ -26,6 +29,14 @@ function newComment(user, text) {
         caption: 'new comment',
         content: user+': '+text,
         type: 'info',
+        keepOpen: true
+    });
+}
+function newConnection(user) {
+    $.Notify({
+        caption: '',
+        content: 'new connection: '+user,
+        type: 'alert',
         keepOpen: true
     });
 }
@@ -61,16 +72,6 @@ function createCommentView (user, comment, date) {
 
 function addNewChanges(element, elementName, user) {
 
-    //if(elementName != 'marker'){
-    //    $.Notify({
-    //        caption: 'new changes',
-    //        content: 'by '+user,
-    //        type: 'warning',
-    //        keepOpen: true
-    //    });
-    //}
-
-    //var canvas = $("#canvas").fabric;
     var canvasElement = JSON.parse(element);
 
     fabric.util.enlivenObjects(canvasElement, function(objects) {

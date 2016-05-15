@@ -60,26 +60,40 @@
             {#</small>#}
         {#</div>#}
     </div>
+
     {#<a href="#" onclick="return add_favorite(this);" class="fg-green padding10 place-right" >Добавить в Избранное</a>#}
 </div>
+<div class="flex-grid"  style="top: 15px;">
+    <div class="row flex-just-center bg-steel">
+        <button class="place-right button fg-white bg-darkGray" style="margin: 0" onclick="showDialog('#dialog')">Share</button>
+        <button class="place-right button fg-white bg-steel" id="save" style="margin: 0">Save</button>
+        <button class="place-right button fg-white bg-darkGray" style="margin: 0">Delete</button>
+    </div>
+</div>
+
 <div class="page-content">
-    <br>
+
     <div class="pasted-image-block"><div class="control-image-block row cells12">
         <div class="flex-grid">
-            <div class="row flex-just-center">
-                <div class="cell size-x600">
-                    <div class="row">
-                        <div class="input-control text big-input link-block" >
-                            <input type="text" value="{{ url_image }}" readonly="" class='align-left' id="img_url">
-                            <button class="button mini-button" data-role="popover" data-popover-mode="click" data-popover-position="right" data-popover-text="URL скопирован в буфер обмена" data-popover-background="bg-cyan" data-popover-color="fg-white" id="copy"><span class="mif-images"></span></button>
-                            <small id="copy_result"></small>
-                        </div>
-                    </div>
-                </div>
-                <div class="cell colspan1">
-                    <span class="list-subtitle"><a class="fg-red " href="?action=remove" onclick="if(!confirm('Удалить картинку с сервера?')) return false; del=true"><small>Удалить</small></a></span><br/>
-                    <span class="list-subtitle place-right"><a class="fg-green" href="#" id="save"><h4>Сохранить</h4></a></span>
-                </div>
+            {#<div class="row flex-just-center">#}
+                {#<div style="margin-top: 13px">#}
+                {#<button class="place-right button primary" onclick="showDialog('#dialog')">Share</button>#}
+                {#<button class="place-right button success" id="save">Save</button>#}
+                {#<button class="place-right button danger">Delete</button>#}
+            {#</div>#}
+                {#<div class="cell size-x600">#}
+                    {#<div class="row">#}
+                        {#<div class="input-control text big-input link-block" >#}
+                            {#<input type="text" value="{{ url_image }}" readonly="" class='align-left' id="img_url">#}
+                            {#<button class="button mini-button" data-role="popover" data-popover-mode="click" data-popover-position="right" data-popover-text="URL скопирован в буфер обмена" data-popover-background="bg-cyan" data-popover-color="fg-white" id="copy"><span class="mif-images"></span></button>#}
+                            {#<small id="copy_result"></small>#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
+                {#<div class="cell colspan1">#}
+                    {#<span class="list-subtitle"><a class="fg-red " href="?action=remove" onclick="if(!confirm('Удалить картинку с сервера?')) return false; del=true"><small>Удалить</small></a></span><br/>#}
+                    {#<span class="list-subtitle place-right"><a class="fg-green" href="#" id="save"><h4>Сохранить</h4></a></span>#}
+                {#</div>#}
             </div>
 
         </div>
@@ -142,6 +156,23 @@
 {% endblock %}
 
 {% block javascript %}
+    <div data-role="dialog" id="dialog" class="padding20 dialog" data-close-button="true" data-overlay="true" data-overlay-color="op-dark" data-overlay-click-close="true" style="width: auto; height: auto; visibility: visible; left: 530px; top: 293px;">
+         <form id="share_form">
+             <div class="cell">
+                <label>Enter e-mail*</label>
+                <div class="input-control text full-size">
+                    <input type="email" required id="email">
+                </div>
+             </div>
+             <button type="submit" class="button">Send</button>
+        </form>
+    </div>
+    <script>
+        function showDialog(id){
+            var dialog = $(id).data('dialog');
+            dialog.open();
+        }
+    </script>
     <script>
         $(document).ready(function () {
             $("#add_comment").click(function () {
@@ -173,7 +204,30 @@
                         $("#textarea").css('border-color','grey');
                     }, 1000);
                 }
-            })
+            });
+
+            $('#share_form').submit(function (event) {
+                event.preventDefault();
+
+                var image = $('#imageurl').attr('data-image');
+                var email = $('#email').val();
+                var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+                if(email.length > 0 && regex.test(email)){
+                    $.post('/ajax-share', {image: image, email:email})
+                        .success(function () {
+                            $.Notify({
+                                caption: 'Success',
+                                content: 'Email sanded.',
+                                type: 'success'
+                            });
+                        })
+                }else{
+                    $('#email').parent().addClass('error');
+
+                    setTimeout($('#email').parent().removeClass('error'), 4000);
+                }
+            });
         })
     </script>
     {#<script src="{{ asset('js/core-chat.js') }}" type="text/javascript"></script>#}
