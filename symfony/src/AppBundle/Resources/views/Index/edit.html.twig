@@ -3,25 +3,26 @@
 {% block body %}
 
 <div class="row cells9 fg-grey text-accent" style="background-color: #5c5c5c">
-    <div class="cell colspan2"></div>
+    <div class="cell colspan3"></div>
     <div class="row flex-just-center">
+        <div id="imageurl" data-image="{{ image_name }}"></div>
         <div class="">
-            <button onclick="selectTools($(this))" style="margin: 0; border-color: #999999;" id="undo-button" class="shortcut-button bg-lightGray bg-active-dark fg-white" data-role="hint" data-hint-mode="1" data-hint="Отменить изменения">
-                    <span class="icon mif-keyboard-return"></span>Undo
+            <button style="margin: 0; border-color: #999999;" id="undo-button" class="shortcut-button bg-lightGray bg-active-dark fg-white" data-role="hint" data-hint-mode="1" data-hint="Отменить изменения">
+                    <span class="icon mif-keyboard-return "></span>Undo
             </button>
-            <button style="margin: 0; border-color: #999999;" class="shortcut-button bg-lightGray bg-active-dark fg-white" id="frame">
+            <button style="margin: 0; border-color: #999999;" class="shortcut-button bg-lightGray bg-active-dark fg-black " id="frame">
                 <img src="{{ asset('icon/frame.png.jpg') }}" class="icon"/>Frame<br />
             </button>
-            <button style="margin: 0; border-color: #999999;" class="shortcut-button bg-lightGray bg-active-dark fg-white" id="marker"><!--active by default-->
-                <span class="icon mif-pencil fg-white"></span>Marker
+            <button style="margin: 0; border-color: #999999;" class="shortcut-button bg-lighterGray bg-lightGray fg-black " id="marker"><!--active by default-->
+                <span class="icon mif-pencil fg-black"></span>Marker
             </button>
-            <button style="margin: 0; border-color: #999999;" class="shortcut-button bg-lightGray bg-active-dark fg-white" id="cut">
-                <span class="icon mif-crop fg-white"></span>Snipp
+            <button style="margin: 0; border-color: #999999;" class="shortcut-button bg-lightGray bg-active-dark fg-black" id="cut">
+                <span class="icon mif-crop fg-black "></span>Snipp
             </button>
-            <button style="margin: 0; border-color: #999999;" class="shortcut-button bg-lightGray bg-active-dark fg-white" id="text">
-                <span class="icon fg-white"><strong>T</strong></span>Text
+            <button style="margin: 0; border-color: #999999;" class="shortcut-button bg-lightGray bg-active-dark fg-black " id="text">
+                <span class="icon fg-black"><strong>T</strong></span>Text
             </button>
-            <button style="margin: 0; border-color: #5c5c5c;  background-color: #5c5c5c;" class="shortcut-button fg-white" id="text">
+            <button style="margin: 0; background-color: #5c5c5c; border-color: #5c5c5c" class="shortcut-button fg-white" id="text">
                 <label>Color:</label>
                 <input class="cell colspan1" type="color" id="brushColor" value="#ff0000">
                 <label>Size:&nbsp&nbsp</label>
@@ -118,6 +119,7 @@
                                     </div>
                                 </div>
                             </form><br><br><br><br>
+                            <div id="comments">
                             {% for comment in comments %}
                                 <div class="panel">
                                     <div class="heading bg-steel">
@@ -131,6 +133,7 @@
                                     </div>
                                 </div><br>
                             {% endfor %}
+                            <div>
                         </div>
                     </div>
                 </div>
@@ -139,7 +142,6 @@
 {% endblock %}
 
 {% block javascript %}
-    <script src="{{ asset('js/ratchet-chat.js') }}" type="javascript"></script>
     <script>
         $(document).ready(function () {
             $("#add_comment").click(function () {
@@ -174,6 +176,8 @@
             })
         })
     </script>
+    {#<script src="{{ asset('js/core-chat.js') }}" type="text/javascript"></script>#}
     <script src="{{ asset('js/fabric.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/tools.js') }}"></script>
+    <script src="{{ asset('js/ratchet-chat.js') }}" type="text/javascript"></script>
 {% endblock %}

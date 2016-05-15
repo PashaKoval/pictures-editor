@@ -17,6 +17,7 @@ class CommentsRepository extends \Doctrine\ORM\EntityRepository
                 ->join('qb.image', 'image')
                 ->where('image.path = :path')
                 ->setParameter('path', $imageName)
+                ->orderBy('qb.dateCreate', 'DESC')
                 ->getQuery()
                 ->getResult();
     }

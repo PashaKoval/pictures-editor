@@ -4,9 +4,11 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Comments;
 use AppBundle\Entity\Image;
+use Predis\Client;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -166,6 +168,16 @@ class AjaxController extends Controller
             $em->persist($comments);
             $em->flush();
 
+             $data = [
+               'event' => 'new-message',
+               'user'   => $this->getUser()->getUserName(),
+               'text' => $text
+             ];
+
+             $jsonContent = json_encode($data);
+             $redis = new Client('tcp://127.0.0.1:6379');
+             $redis->publish('chat', $jsonContent);
+
             return new Response('success');
 
         } catch (\Exception $e) {
@@ -178,6 +190,57 @@ class AjaxController extends Controller
         if(in_array($type, $allowTypes))
             return true;
         return false;
+    }
+
+    /**
+     * @Route("/ajax-send-changes", name="add_changes")
+     * @Method("POST")
+     */
+    public function addChanges(Request $request)
+    {
+        try{
+            $element = $request->request->get('element');
+            $elementName = $request->request->get('element_name');
+
+            $data = [
+                'event' => 'new-changes',
+                'user' => $this->getUser()->getUserName(),
+                'element' => $element,
+                'element_name' => $elementName
+            ];
+
+            $jsonContent = json_encode($data);
+            $redis = new Client('tcp://127.0.0.1:6379');
+            $redis->publish('chat', $jsonContent);
+
+            return new Response(200);
+
+        } catch (\Exception $e) {
+            return new Response(400);
+        }
+    }
+
+    /**
+     * @Route("ajax-get-comments", name="get_comments")
+     */
+    public function getComments(Request $request)
+    {
+        $image = $request->query->get('image');
+
+        $comments = $this->get('doctrine.orm.default_entity_manager')
+            ->getRepository('AppBundle:Comments')->getByImage($image);
+        $results = [];
+
+        foreach($comments as $comment){
+            $results[] = [
+                'user' => $comment->getUser()->getUsername(),
+                'text' => $comment->getText(),
+                'date' => date('m/d/Y H:i:s',$comment->getDateCreate()->getTimestamp())
+            ];
+        }
+        $comments = json_encode($results);
+
+        return new JsonResponse($comments);
     }
 }
 

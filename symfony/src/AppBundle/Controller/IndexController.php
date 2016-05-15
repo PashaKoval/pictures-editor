@@ -27,11 +27,12 @@ class IndexController extends Controller
         $imagePath = '/storage/'.substr($image,0,2).'/'.$image.'.jpg';
         $comments = $this->get('doctrine.orm.default_entity_manager')
             ->getRepository('AppBundle:Comments')->getByImage($image);
+        $user = $this->getUser();
 
 //         Uncomment this to publish to redis and use Ratchet or Faye
         $data = [
-          'event' => 'new-message',
-          'data' => 'hello!'
+          'event' => 'new-connection',
+          'data' => $user->getUsername()
         ];
 
         $jsonContent = json_encode($data);

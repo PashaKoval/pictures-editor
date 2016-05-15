@@ -14,7 +14,7 @@ $server = IoServer::factory(
             $chat
         )
     ),
-    8080
+    8081
 );
 
 $redis = new Predis\Async\Client('tcp://127.0.0.1:6379', $server->loop);
