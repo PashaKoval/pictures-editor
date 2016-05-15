@@ -66,7 +66,7 @@ class IndexController extends Controller
      */
     public function aboutAction()
     {
-
+        return $this->render('AppBundle:Index:about.html.twig');
     }
 
     /**
@@ -74,7 +74,7 @@ class IndexController extends Controller
      */
     public function faqAction()
     {
-
+        return $this->render('AppBundle:Index:faq.html.twig');
     }
 
     /**
@@ -82,7 +82,7 @@ class IndexController extends Controller
      */
     public function rulesAction()
     {
-
+        return $this->render('AppBundle:Index:rules.html.twig');
     }
 
     /**

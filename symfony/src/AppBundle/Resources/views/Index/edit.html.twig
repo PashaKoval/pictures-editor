@@ -67,7 +67,7 @@
     <div class="row flex-just-center bg-steel">
         <button class="place-right button fg-white bg-darkGray" style="margin: 0" onclick="showDialog('#dialog')">Share</button>
         <button class="place-right button fg-white bg-steel" id="save" style="margin: 0">Save</button>
-        <button class="place-right button fg-white bg-darkGray" style="margin: 0">Delete</button>
+        <a class="place-right button fg-white bg-darkGray" style="margin: 0" href='{{ path('delete', {'image': image_name}) }}' onclick="if(!confirm('Удалить картинку с сервера?')) return false;">Delete</a>
     </div>
 </div>
 

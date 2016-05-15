@@ -37,13 +37,13 @@ class Comments
 
     /**
      *@ORM\ManyToOne(targetEntity="Image", inversedBy="comments")
-     *@ORM\JoinColumn(name="image_id", referencedColumnName="id")
+     *@ORM\JoinColumn(name="image_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $image;
 
     /**
     *@ORM\ManyToOne(targetEntity="User", inversedBy="comments")
-    *@ORM\JoinColumn(name="user_id", referencedColumnName="id")
+    *@ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
     */
     private $user;
 
