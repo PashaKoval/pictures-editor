@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\User;
 use AppBundle\Form\CommentType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -28,8 +29,11 @@ class IndexController extends Controller
         $comments = $this->get('doctrine.orm.default_entity_manager')
             ->getRepository('AppBundle:Comments')->getByImage($image);
         $user = $this->getUser();
+        $access = $this->checkAccess($user, $image);
 
-//         Uncomment this to publish to redis and use Ratchet or Faye
+        if($access === -1)
+            return $this->redirectToRoute('access_denied');
+
         $data = [
           'event' => 'new-connection',
           'data' => $user->getUsername()
@@ -43,6 +47,7 @@ class IndexController extends Controller
             'url_image' => $host.'/edit/'.$image,
             'image' => $imagePath,
             'image_name' => $image,
+            'access' => $access,
             'comments' => $comments
         ]);
     }
@@ -104,5 +109,23 @@ class IndexController extends Controller
         $imagePath = $this->getParameter('kernel.root_dir')."/../web/storage/".substr($image,0,2).'/'.$image.'.jpg';
         unlink($imagePath);
         return $this->redirectToRoute('history');
+    }
+
+    private function checkAccess(User $user, $hash)
+    {
+        $em = $this->get('doctrine.orm.default_entity_manager');
+        $access = -1;
+
+        $image = $em->getRepository('AppBundle:Image')
+            ->findBy(['user' => $user, 'path' => $hash]);
+        $invites = $em->getRepository('AppBundle:Invites')
+            ->findBy(['imageHash'=>$hash, 'userEmail'=>$user->getEmail()]);
+        if(!empty($image)) {
+            $access = 0;
+        } elseif (!empty($invites)) {
+            $access = 1;
+        }
+
+        return $access;
     }
 }

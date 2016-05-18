@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="grid">
+        <div class="row cells12">
+            <div class="cell colspan11 offset1">
+                <div class="container page-history">
+                    <h2>This page is not available for you</h2>
+                    <div class="padding10 margin40 bg-orange fg-white text-accent">
+                        <strong>Access denied.</strong> <a href="{{ path('upload') }}">To uploading</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

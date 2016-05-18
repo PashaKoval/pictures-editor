@@ -67,4 +67,12 @@ class SecurityController extends Controller
             array('form' => $form->createView())
         );
     }
+
+    /**
+     * @Route("/denied", name="access_denied")
+     */
+    public function deniedPageAction()
+    {
+       return $this->render(':default:denied.html.twig');
+    }
 }

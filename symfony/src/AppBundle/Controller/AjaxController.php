@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Comments;
 use AppBundle\Entity\Image;
+use AppBundle\Entity\Invites;
 use Predis\Client;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -250,6 +251,14 @@ class AjaxController extends Controller
     {
         $image = $request->request->get('image');
         $email = $request->request->get('email');
+        $em = $this->get('doctrine.orm.default_entity_manager');
+
+        $invite = new Invites();
+        $invite->setUserEmail($email);
+        $invite->setImageHash($image);
+
+        $em->persist($invite);
+        $em->flush($invite);
 
         $message = \Swift_Message::newInstance()
             ->setSubject('Pictures')
