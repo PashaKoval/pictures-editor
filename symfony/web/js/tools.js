@@ -8,27 +8,22 @@ window.onload = function() {
               selectionLineWidth: 2
         });
 
+        var canvasId = Date.now();
+
         var state = [];
         var mods = 0;
         marker = true;
-        canvas.on(
-            'object:modified', function () {
-            updateModifications(true);
-            console.log('modified');
-        },
-            'object:added', function () {
-            updateModifications(true);
-            console.log('add');
-        });
 
         canvas.isDrawingMode = true;
         canvas.freeDrawingBrush.width = size = $('#size').val();
         canvas.freeDrawingBrush.color = brushColor = $('#brushColor').val();
         container = document.getElementById('canvas').getBoundingClientRect();
         imgElement = document.getElementById('uploaded_img');
+
         var del = false;
         var save = true;
         var proportion;
+
         if(($(window).width()-300) < imgElement.width)
             proportion = (($(window).width()-250)/imgElement.width)-0.05;
         else
@@ -44,7 +39,30 @@ window.onload = function() {
         canvas.setHeight(imgInstance.getHeight());
         imgInstance.selectable = false;
         canvas.add(imgInstance);
-        //console.log('test');
+
+        canvas.on('object:added', function(e) {
+
+            var activeObject = e.target;
+
+            if(activeObject.canvasId == null){
+                var json = activeObject.toJSON();
+                json.canvasId = canvasId;
+                var object = JSON.stringify(json);
+                conn.send(JSON.stringify({'event':'new-changes','elements':object}));
+            }
+        });
+
+        canvas.on('text:changed', function(e) {
+
+            var activeObject = e.target;
+
+            if(activeObject.canvasId == null){
+                var json = activeObject.toJSON();
+                json.canvasId = canvasId;
+                var object = JSON.stringify(json);
+                conn.send(JSON.stringify({'event':'new-changes','elements':object}));
+            }
+        });
 
         function updateModifications(savehistory) {
             if (savehistory === true) {
@@ -142,6 +160,7 @@ window.onload = function() {
         });
 
         $('#marker').click( markerHandler = function () {
+            conn.send('marker choosed');
             save = false;
             marker = true;
             if (typeof(frameDownHandler) === "function")canvas.off('mouse:down', frameDownHandler);
@@ -209,7 +228,7 @@ window.onload = function() {
                     canvas.renderAll();
                 }
             });
-        })
+        });
 
         $('#text').click(function() {
             save = false;
@@ -324,7 +343,7 @@ window.onload = function() {
         canvas.setHeight(imgInstance.getHeight());
 
         canvas.add(imgInstance);
-        disableSelection(canvas)
+        disableSelection(canvas);
 
         $(document).on('click','.frame',function () {
             openImageWindow($('#uploaded_img').attr('src'));
@@ -401,7 +420,8 @@ function sendChanges(element, name){
 }
 
 window.setInterval(function () {
-        sendChanges(JSON.stringify(canvas.getObjects(), 'marker'));
-    },
-    9000
-);
+    //    var objects = JSON.stringify(canvas.getObjects());
+    //    conn.send(JSON.stringify({'event':'new-changes','elements':objects}));
+    //},
+    //1500
+});

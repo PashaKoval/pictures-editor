@@ -20,32 +20,32 @@
                         <li class="bg-dark" style="height: 150px"></li>
                         <li {% if app.request.get('_route') == 'upload' %}class="active"{% endif %}>
                             <a href="{{ path('upload') }}">
-                                <span class="mif-apps icon"></span>
+                                <span class="mif-cloud-upload  icon"></span>
                                 <span class="title">uploading</span>
                             </a></li>
                         <li {% if app.request.get('_route') == 'history' %}class="active"{% endif %}>
                             <a href="{{ path('history') }}">
-                                <span class="mif-vpn-publ icon"></span>
+                                <span class="mif-apps icon"></span>
                                 <span class="title">history</span>
                             </a></li>
                         <li {% if app.request.get('_route') == 'about' %}class="active"{% endif %}>
                             <a href="{{ path('about') }}">
-                                <span class="mif-drive-eta icon"></span>
+                                <span class="mif-info icon"></span>
                                 <span class="title">about</span>
                             </a></li>
                         <li {% if app.request.get('_route') == 'faq' %}class="active"{% endif %}>
                             <a href="{{ path('faq') }}">
-                                <span class="mif-cloud icon"></span>
+                                <span class="mif-pin icon"></span>
                                 <span class="title">faq</span>
                             </a></li>
                         <li {% if app.request.get('_route') == 'rules' %}class="active"{% endif %}>
                             <a href="{{ path('rules') }}">
-                                <span class="mif-database icon"></span>
+                                <span class="mif-checkmark icon"></span>
                                 <span class="title">rules</span>
                             </a></li>
                         <li {% if app.request.get('_route') == 'exit' %}class="active"{% endif %}>
                             <a href="{{ path('logout') }}">
-                                <span class="mif-database icon"></span>
+                                <span class="mif-exit icon"></span>
                                 <span class="title">exit</span>
                             </a></li>
                         <li class="bg-dark" style="height: 2000px"></li>

@@ -8,7 +8,7 @@
         <div id="imageurl" data-image="{{ image_name }}"></div>
         <div class="">
             <button style="margin: 0; border-color: #999999;" id="undo-button" class="shortcut-button bg-lightGray bg-active-dark fg-white" data-role="hint" data-hint-mode="1" data-hint="Отменить изменения">
-                    <span class="icon mif-keyboard-return "></span>Undo
+                    <span class="icon mif-keyboard-return "></span>Clear
             </button>
             <button style="margin: 0; border-color: #999999;" class="shortcut-button bg-lightGray bg-active-dark fg-black " id="frame">
                 <img src="{{ asset('icon/frame.png.jpg') }}" class="icon"/>Frame<br />
@@ -41,27 +41,7 @@
                 </small>
             </button>
         </div>
-        {#<div class="cell size2 margin5">#}
-            {#<label><small>Color:</small></label>#}
-            {#<input class="cell colspan1" type="color" id="brushColor" value="#ff0000">#}
-            {#<label><small>Size:&nbsp&nbsp</small></label>#}
-            {#<small>#}
-                {#<select class="size40" id="size">#}
-                    {#<option value="1">1px(15 текст)</option>#}
-                    {#<option value="3">3px(15 текст)</option>#}
-                    {#<option value="5">5px(20 текст)</option>#}
-                    {#<option value="10" selected>10px(40 текст)</option>#}
-                    {#<option value="15">15px(60 текст)</option>#}
-                    {#<option value="20">20px(80 текст)</option>#}
-                    {#<option value="30">30px(120 текст)</option>#}
-                    {#<option value="40">40px(160 текст)</option>#}
-                    {#<option value="70">70px(280 текст)</option>#}
-                {#</select>#}
-            {#</small>#}
-        {#</div>#}
     </div>
-
-    {#<a href="#" onclick="return add_favorite(this);" class="fg-green padding10 place-right" >Добавить в Избранное</a>#}
 </div>
 <div class="flex-grid"  style="top: 15px;">
     <div class="row flex-just-center bg-steel">
@@ -75,26 +55,8 @@
 
     <div class="pasted-image-block"><div class="control-image-block row cells12">
         <div class="flex-grid">
-            {#<div class="row flex-just-center">#}
-                {#<div style="margin-top: 13px">#}
-                {#<button class="place-right button primary" onclick="showDialog('#dialog')">Share</button>#}
-                {#<button class="place-right button success" id="save">Save</button>#}
-                {#<button class="place-right button danger">Delete</button>#}
-            {#</div>#}
-                {#<div class="cell size-x600">#}
-                    {#<div class="row">#}
-                        {#<div class="input-control text big-input link-block" >#}
-                            {#<input type="text" value="{{ url_image }}" readonly="" class='align-left' id="img_url">#}
-                            {#<button class="button mini-button" data-role="popover" data-popover-mode="click" data-popover-position="right" data-popover-text="URL скопирован в буфер обмена" data-popover-background="bg-cyan" data-popover-color="fg-white" id="copy"><span class="mif-images"></span></button>#}
-                            {#<small id="copy_result"></small>#}
-                        {#</div>#}
-                    {#</div>#}
-                {#</div>#}
-                {#<div class="cell colspan1">#}
-                    {#<span class="list-subtitle"><a class="fg-red " href="?action=remove" onclick="if(!confirm('Удалить картинку с сервера?')) return false; del=true"><small>Удалить</small></a></span><br/>#}
-                    {#<span class="list-subtitle place-right"><a class="fg-green" href="#" id="save"><h4>Сохранить</h4></a></span>#}
-                {#</div>#}
-            </div>
+
+        </div>
 
         </div>
         </div>
@@ -202,7 +164,7 @@
 
                     setTimeout(function () {
                         $("#textarea").css('border-color','grey');
-                    }, 1000);
+                    }, 4000);
                 }
             });
 
@@ -232,6 +194,6 @@
     </script>
     {#<script src="{{ asset('js/core-chat.js') }}" type="text/javascript"></script>#}
     <script src="{{ asset('js/fabric.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/tools.js') }}"></script>
     <script src="{{ asset('js/ratchet-chat.js') }}" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ asset('js/tools.js') }}"></script>
 {% endblock %}

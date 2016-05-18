@@ -1,5 +1,5 @@
 // Ratchet
-var conn = new WebSocket('ws://localhost:8081');
+var conn = new WebSocket('ws://'+window.location.hostname+':8081');
 conn.onopen = function(e) {
   console.log("Connection established!");
 };
@@ -13,7 +13,7 @@ conn.onmessage = function(e) {
             newComment(payload.user, payload.text);
             break;
         case 'new-changes':
-            addNewChanges(payload.element, payload.element_name, payload.user);
+            addNewChanges(payload.elements /*payload.element_name, payload.user*/);
             break;
         case 'new-connection':
             newConnection(payload.data);
@@ -70,10 +70,10 @@ function createCommentView (user, comment, date) {
             "</div>"+"<br>";
 }
 
-function addNewChanges(element, elementName, user) {
+function addNewChanges(elements/*, elementName, user*/) {
+    var canvasElement = JSON.parse(elements);
 
-    var canvasElement = JSON.parse(element);
-
+    canvasElement = [canvasElement];
     fabric.util.enlivenObjects(canvasElement, function(objects) {
         var origRenderOnAddRemove = canvas.renderOnAddRemove;
         canvas.renderOnAddRemove = false;
